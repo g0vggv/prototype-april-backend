@@ -26,6 +26,9 @@ type Label {
   name: String!
 }
 
+/**
+ * sources are anything on internet, such as PDF, webpages, blog post, video or audio.
+ */ 
 type Source {
   id: ID! @unique
   createdAt: DateTime!
@@ -35,6 +38,9 @@ type Source {
   url: String!
 }
 
+/**
+ *  A card represents a key information extracted from a source. 
+ */
 type Card {
   id: ID! @unique
   createdAt: DateTime!
@@ -48,14 +54,21 @@ type Card {
   labels: [Label]
 }
 
+/**
+ * A cluster represents a abstract concept.
+ */
 type Cluster{
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
   owner: User!
+  title: String!
   cards: [Card]
 }
 
+/**
+ * Edges links two objects.
+ */
 type Edge {
   id: ID! @unique
   createdAt: DateTime!
@@ -65,6 +78,9 @@ type Edge {
   dest: Card | Cluster | Map
 }
 
+/**
+ * An analytics map.
+ */
 type Map {
   id: ID @unique
   createdAt: DateTime!
@@ -73,4 +89,17 @@ type Map {
   name: String!
   clusters: [Clusters]
   edges: [Edge]
+}
+
+/**
+ * A kind group that members are interested on a special topic,
+ * should we just call this a cyber space? room?
+ */
+type Topic {
+  id: ID @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  isLocked: Boolean! @default(value: "true")
+  members: [User!]
 }
